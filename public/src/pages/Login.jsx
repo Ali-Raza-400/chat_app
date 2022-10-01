@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import Logo from "../assets/logo.svg"
@@ -10,10 +10,15 @@ const Login = () => {
   const nevigate = useNavigate()
   const [values, setValues] = useState({
     username: "",
-
     password: "",
-
   })
+
+  useEffect(() => {
+if(localStorage.getItem('chat-app-user')){
+  nevigate('/')
+}
+  },[])
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (handleValidation()) {
@@ -21,7 +26,6 @@ const Login = () => {
       const { password, username } = values;
       const { data } = await axios.post(loginRoute, {
         username,
-
         password,
       });
       if (data.status === false) {
