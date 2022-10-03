@@ -21,9 +21,12 @@ const SetAvatar = () => {
     theme: "dark"
   }
   useEffect( () => {
+    myFunc();
+  }, []);
+  const myFunc=async()=>{
     const data = [];
     for (let i = 0; i < 4; i++) {
-      const image =  axios.get(
+      const image =await  axios.get(
         `${api}/${Math.round(Math.random() * 1000)}`
       );
       const buffer = new Buffer(image.data);
@@ -31,7 +34,7 @@ const SetAvatar = () => {
     }
     setAvatars(data);
     setIsLoading(false);
-  }, []);
+  }
   return (
     <>
        
